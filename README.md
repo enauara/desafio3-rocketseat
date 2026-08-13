@@ -176,11 +176,3 @@ npm run build
 - Frontend faz cache automático com Apollo Client
 - Senha é criptografada com bcryptjs
 
-## Próximos Passos (Opcional)
-
-- Upload de avatar para usuários
-- Dashboards mais avançados com gráficos
-- Exportar relatórios em PDF
-- Testes automatizados
-- Deployment em produção
-
