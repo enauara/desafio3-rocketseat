@@ -76,6 +76,7 @@ export const Transactions = () => {
       day: "2-digit",
       month: "2-digit",
       year: "numeric",
+      timeZone: "UTC",
     }).format(new Date(date));
   };
 
@@ -130,10 +131,10 @@ export const Transactions = () => {
             >
               Dashboard
             </a>
-            <a href="#" className="text-green-600 font-medium hover:text-green-700">
+            <a href="/transactions" className="text-green-600 font-medium hover:text-green-700">
               Transações
             </a>
-            <a href="#" className="text-gray-600 hover:text-gray-900">
+            <a href="/categories" className="text-gray-600 hover:text-gray-900">
               Categorias
             </a>
           </div>

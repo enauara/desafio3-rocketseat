@@ -50,9 +50,13 @@ export const Categories = () => {
   const openModal = (categoryId?: string) => {
     if (categoryId) {
       const category = categories.find((c: any) => c.id === categoryId);
+      console.log("Category: ",category)
       if (category) {
         setEditingId(categoryId);
         setName(category.name);
+        setDescription(category.description || "");
+        setSelectedIcon(category.icon || "📌");
+        setSelectedColor(category.color || "bg-green-500");
       }
     } else {
       setEditingId(null);
@@ -79,11 +83,11 @@ export const Categories = () => {
     try {
       if (editingId) {
         await updateCategory({
-          variables: { id: editingId, name },
+          variables: { id: editingId, name, description, icon: selectedIcon, color: selectedColor },
         });
       } else {
         await createCategory({
-          variables: { name },
+          variables: { name, description, icon: selectedIcon, color: selectedColor },
         });
       }
       refetch();
@@ -191,7 +195,7 @@ export const Categories = () => {
               className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition"
             >
               <div className="flex items-start justify-between mb-4">
-                <span className="text-4xl">📌</span>
+                <span className="text-4xl">{category.icon || "📌"}</span>
                 <div className="flex gap-2">
                   <button
                     onClick={() => openModal(category.id)}
@@ -211,6 +215,12 @@ export const Categories = () => {
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 {category.name}
               </h3>
+              {}
+              {category.description && (
+                  <p className="text-sm text-gray-500 mb-3 whitespace-pre-line">
+                    {category.description}
+                  </p>
+              )}
               <p className="text-sm text-gray-600">
                 Criada em{" "}
                 {new Date(category.createdAt).toLocaleDateString("pt-BR")}

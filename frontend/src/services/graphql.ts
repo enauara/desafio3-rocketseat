@@ -41,6 +41,9 @@ export const GET_CATEGORIES = gql`
     categories {
       id
       name
+      description
+      icon
+      color
       createdAt
       updatedAt
     }
@@ -48,10 +51,13 @@ export const GET_CATEGORIES = gql`
 `;
 
 export const CREATE_CATEGORY = gql`
-  mutation CreateCategory($name: String!) {
-    createCategory(name: $name) {
+  mutation CreateCategory($name: String!, $description: String!, $icon: String!, $color: String!) {
+    createCategory(name: $name, description: $description, icon: $icon, color: $color) {
       id
       name
+      description
+      icon
+      color
       createdAt
       updatedAt
     }

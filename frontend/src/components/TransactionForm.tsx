@@ -38,10 +38,20 @@ export const TransactionForm = ({
         setAmount(transaction.amount.toFixed(2).replace(".", ","));
         setType(transaction.type);
         setCategoryId(transaction.category.id);
-        setDate(transaction.date.split("T")[0]);
+        //setDate(transaction.date.split("T")[0]);
+        setDate(parseLocalDateToISO(transaction.date.split("T")[0])); //todo conferir
       }
     }
   }, [transactionId, transactionsData]);
+
+  function parseLocalDateToISO(dateString: string): string {
+    const [day, month, year] = dateString.split("-").map(Number);
+    console.log("dateString1: ",dateString)
+    const localDate = new Date(day, month - 1, year, 12, 0, 0);
+    console.log("localDate: ",localDate)
+    console.log("localDateIsoString: ",localDate.toISOString())
+    return localDate.toISOString().split("T")[0];
+  }
 
   const [createTransaction] = useMutation(CREATE_TRANSACTION, {
     onCompleted: () => {
@@ -74,14 +84,18 @@ export const TransactionForm = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const numericAmount = parseFloat(amount.replace(",", "."));
+    let numericAmount = amount.replace(/[^\d.,]/g, "");
+    numericAmount = numericAmount.replace(/\./g, "");
+    numericAmount = numericAmount.replace(",", ".");
+    const numericAmountParsed = parseFloat(numericAmount);
 
     const variables = {
       title,
-      amount: numericAmount,
+      amount: numericAmountParsed,
       type,
       categoryId,
-      date: new Date(date).toISOString(),
+      //date: new Date(date).toISOString(),
+      date: new Date(parseLocalDateToISO(date)).toISOString() //todo conferir
     };
 
     if (transactionId) {
@@ -95,6 +109,7 @@ export const TransactionForm = ({
     }
   };
 
+  // @ts-ignore
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md">

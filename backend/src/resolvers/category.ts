@@ -25,12 +25,15 @@ export const categoryResolvers = {
   },
 
   Mutation: {
-    createCategory: async (_: any, { name }: any, context: any) => {
+    createCategory: async (_: any, { name, description, icon, color }: any, context: any) => {
       const user = requireAuth(context);
       return prisma.category.create({
         data: {
           name,
           userId: user.userId,
+          description,
+          icon,
+          color
         },
       });
     },

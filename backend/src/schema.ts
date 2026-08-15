@@ -17,6 +17,9 @@ export const schema = {
     type Category {
       id: ID!
       name: String!
+      description: String!
+      icon: String!
+      color: String!
       createdAt: DateTime!
       updatedAt: DateTime!
     }
@@ -49,7 +52,7 @@ export const schema = {
       signup(email: String!, name: String!, password: String!): AuthPayload!
       login(email: String!, password: String!): AuthPayload!
       
-      createCategory(name: String!): Category!
+      createCategory(name: String!, description: String!, icon: String!, color: String!): Category!
       updateCategory(id: ID!, name: String!): Category!
       deleteCategory(id: ID!): Boolean!
       

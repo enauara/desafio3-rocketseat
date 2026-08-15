@@ -27,6 +27,9 @@ model Category {
   id        String     @id @default(cuid())
   name      String
   userId    String
+  description String?
+  icon      String?
+  color     String?
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   transactions Transaction[]
   createdAt DateTime   @default(now())
