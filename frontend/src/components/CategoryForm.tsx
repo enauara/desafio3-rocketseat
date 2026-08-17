@@ -48,7 +48,7 @@ export const CategoryForm = ({
     e.preventDefault();
 
     if (categoryId) {
-      updateCategory({ variables: { id: categoryId, name } });
+      updateCategory({ variables: { id: categoryId, name} });
     } else {
       createCategory({ variables: { name } });
     }

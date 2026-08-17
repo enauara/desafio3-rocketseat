@@ -2,15 +2,15 @@ import { useQuery } from "@apollo/client";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { GET_TRANSACTIONS, GET_CATEGORIES } from "../services/graphql";
-import type { Transaction } from "../types/index.js";
+import type {Transaction} from "../types/index.js";
 
 const getTransactionIcon = (categoryName: string) => {
   const icons: Record<string, { icon: string; color: string }> = {
-    Alimentação: { icon: "🍽️", color: "bg-blue-100" },
+    Salário: { icon: "💵", color: "bg-green-100" },
     Transporte: { icon: "🚗", color: "bg-purple-100" },
+    Alimentação: { icon: "🍽️", color: "bg-blue-100" },
     Mercado: { icon: "🛒", color: "bg-orange-100" },
     Investimento: { icon: "💰", color: "bg-green-100" },
-    Salário: { icon: "💵", color: "bg-green-100" },
     Saúde: { icon: "⚕️", color: "bg-red-100" },
     Educação: { icon: "📚", color: "bg-yellow-100" },
     Lazer: { icon: "🎬", color: "bg-pink-100" },
@@ -18,6 +18,14 @@ const getTransactionIcon = (categoryName: string) => {
   };
   return icons[categoryName] || { icon: "📌", color: "bg-gray-100" };
 };
+/*
+const getTransactionIcon= (categoryName: string) => {
+  const icons: Record<string, { icon: string; color: string }> = {
+    icon: categoryName?.icon || "📌",
+    color: categoryName?.color || "bg-gray-100 text-gray-700",
+  };
+  return icons[categoryName] || { icon: "📌", color: "bg-gray-100" };
+};*/
 
 export const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -75,6 +83,7 @@ export const Dashboard = () => {
       day: "2-digit",
       month: "2-digit",
       year: "2-digit",
+      timeZone: "UTC"
     }).format(new Date(date));
   };
 
@@ -175,7 +184,7 @@ export const Dashboard = () => {
               {transactions.length > 0 ? (
                 transactions.map((transaction: any) => {
                   const { icon, color } = getTransactionIcon(
-                    transaction.category.name
+                    transaction.category
                   );
                   return (
                     <div

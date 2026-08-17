@@ -46,10 +46,7 @@ export const TransactionForm = ({
 
   function parseLocalDateToISO(dateString: string): string {
     const [day, month, year] = dateString.split("-").map(Number);
-    console.log("dateString1: ",dateString)
     const localDate = new Date(day, month - 1, year, 12, 0, 0);
-    console.log("localDate: ",localDate)
-    console.log("localDateIsoString: ",localDate.toISOString())
     return localDate.toISOString().split("T")[0];
   }
 

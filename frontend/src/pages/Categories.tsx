@@ -50,7 +50,6 @@ export const Categories = () => {
   const openModal = (categoryId?: string) => {
     if (categoryId) {
       const category = categories.find((c: any) => c.id === categoryId);
-      console.log("Category: ",category)
       if (category) {
         setEditingId(categoryId);
         setName(category.name);
@@ -83,11 +82,11 @@ export const Categories = () => {
     try {
       if (editingId) {
         await updateCategory({
-          variables: { id: editingId, name, description, icon: selectedIcon, color: selectedColor },
+          variables: { id: editingId, name, description: description, icon: selectedIcon, color: selectedColor },
         });
       } else {
         await createCategory({
-          variables: { name, description, icon: selectedIcon, color: selectedColor },
+          variables: { name, description: description, icon: selectedIcon, color: selectedColor },
         });
       }
       refetch();
