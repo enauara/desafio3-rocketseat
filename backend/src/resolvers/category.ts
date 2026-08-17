@@ -38,7 +38,7 @@ export const categoryResolvers = {
       });
     },
 
-    updateCategory: async (_: any, { id, name }: any, context: any) => {
+    updateCategory: async (_: any, { id, name, description, icon, color }: any, context: any) => {
       const user = requireAuth(context);
       const category = await prisma.category.findUnique({
         where: { id },
@@ -50,7 +50,7 @@ export const categoryResolvers = {
 
       return prisma.category.update({
         where: { id },
-        data: { name },
+        data: { name, description, icon, color },
       });
     },
 

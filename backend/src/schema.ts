@@ -53,7 +53,7 @@ export const schema = {
       login(email: String!, password: String!): AuthPayload!
       
       createCategory(name: String!, description: String!, icon: String!, color: String!): Category!
-      updateCategory(id: ID!, name: String!): Category!
+      updateCategory(id: ID!, name: String!, description: String!, icon: String!, color: String!): Category!
       deleteCategory(id: ID!): Boolean!
       
       createTransaction(title: String!, amount: Float!, type: String!, categoryId: ID!, date: DateTime!): Transaction!
