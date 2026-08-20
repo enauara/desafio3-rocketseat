@@ -145,9 +145,12 @@ export const Categories = () => {
 
           <div className="flex items-center gap-4">
             <button
-              onClick={handleLogout}
-              className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-sm font-semibold text-gray-700 hover:bg-gray-400"
+                onClick={handleLogout}
+                className="p-2 text-gray-600 hover:text-gray-900"
             >
+              🚪
+            </button>
+            <button className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-sm font-semibold text-gray-700 hover:bg-gray-400">
               {getInitials(user?.name || "")}
             </button>
           </div>

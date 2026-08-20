@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import type { User } from "../types/index.js";
+import {client} from "../services/apollo.ts";
 
 interface AuthContextType {
   user: User | null;
@@ -37,11 +38,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.setItem("user", JSON.stringify(newUser));
   };
 
-  const logout = () => {
+  const logout = async () => {
     setToken(null);
     setUser(null);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+
+    await client.resetStore(); //teste
   };
 
   return (

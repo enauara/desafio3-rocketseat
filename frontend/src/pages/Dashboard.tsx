@@ -4,28 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { GET_TRANSACTIONS, GET_CATEGORIES } from "../services/graphql";
 import type {Transaction} from "../types/index.js";
 
-const getTransactionIcon = (categoryName: string) => {
-  const icons: Record<string, { icon: string; color: string }> = {
-    Salário: { icon: "💵", color: "bg-green-100" },
-    Transporte: { icon: "🚗", color: "bg-purple-100" },
-    Alimentação: { icon: "🍽️", color: "bg-blue-100" },
-    Mercado: { icon: "🛒", color: "bg-orange-100" },
-    Investimento: { icon: "💰", color: "bg-green-100" },
-    Saúde: { icon: "⚕️", color: "bg-red-100" },
-    Educação: { icon: "📚", color: "bg-yellow-100" },
-    Lazer: { icon: "🎬", color: "bg-pink-100" },
-    Utilidades: { icon: "💡", color: "bg-gray-100" },
-  };
-  return icons[categoryName] || { icon: "📌", color: "bg-gray-100" };
+interface TransactionItemProps {
+  transaction: Transaction;
+}
+
+const getTransactionIcon= ({ transaction }: TransactionItemProps) => {
+  const { category } = transaction;
+  const icon = category?.icon || "📌";
+  return { icon };
 };
-/*
-const getTransactionIcon= (categoryName: string) => {
-  const icons: Record<string, { icon: string; color: string }> = {
-    icon: categoryName?.icon || "📌",
-    color: categoryName?.color || "bg-gray-100 text-gray-700",
-  };
-  return icons[categoryName] || { icon: "📌", color: "bg-gray-100" };
-};*/
 
 export const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -118,9 +105,12 @@ export const Dashboard = () => {
 
           <div className="flex items-center gap-4">
             <button
-              onClick={handleLogout}
-              className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-sm font-semibold text-gray-700 hover:bg-gray-400"
+                onClick={handleLogout}
+                className="p-2 text-gray-600 hover:text-gray-900"
             >
+              🚪
+            </button>
+            <button className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-sm font-semibold text-gray-700 hover:bg-gray-400">
               {getInitials(user?.name || "")}
             </button>
           </div>
@@ -184,7 +174,7 @@ export const Dashboard = () => {
               {transactions.length > 0 ? (
                 transactions.map((transaction: any) => {
                   const { icon, color } = getTransactionIcon(
-                    transaction.category
+                    { transaction }
                   );
                   return (
                     <div
